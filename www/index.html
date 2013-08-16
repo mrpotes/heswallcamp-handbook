@@ -18,25 +18,57 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<title>Hello World</title>
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/knockout-2.2.1.js"></script>
+<script type="text/javascript" src="js/globalize.min.js"></script>
+<script type="text/javascript" src="js/jsencrypt.min.js"></script>
+<script type="text/javascript" src="js/tripledes.js"></script>
+
+<script type="text/javascript" src="js/dx.phonejs.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/dx.common.css" />
+<link rel="stylesheet" type="text/css" href="css/dx.ios.default.css" />
+<link rel="stylesheet" type="text/css" href="css/dx.android.holo-dark.css" />
+<link rel="stylesheet" type="text/css" href="css/dx.win8.black.small.css" />
+<link rel="stylesheet" type="text/css" href="css/dx.desktop.default.css" />
+
+<!-- Layouts -->
+<script type="text/javascript" src="layouts/Simple/SimpleLayout.js"></script>
+<link rel="stylesheet" type="text/css" href="layouts/Simple/SimpleLayout.css" />
+<link rel="dx-template" type="text/html" href="layouts/Simple/SimpleLayout.html" />
+
+<script type="text/javascript" src="layouts/SlideOut/SlideOutLayout.js"></script>
+<link rel="stylesheet" type="text/css" href="layouts/SlideOut/SlideOutLayout.css" />
+<link rel="dx-template" type="text/html" href="layouts/SlideOut/SlideOutLayout.html" />
+
+<script type="text/javascript" src="phonegap.js"></script>
+
+<!-- App views -->
+<link rel="stylesheet" type="text/css" href="views/home.css" />
+<script type="text/javascript" src="views/login.js"></script>
+<script type="text/javascript" src="views/home.js"></script>
+<link rel="dx-template" type="text/html" href="views/home.html" />
+<link rel="dx-template" type="text/html" href="views/about.html" />
+<link rel="dx-template" type="text/html" href="views/login.html" />
+
+<!-- App -->
+<script type="text/javascript" src="js/db.js"></script>
+<script type="text/javascript" src="js/oauth.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+</head>
+<body>
+  <div class="dx-viewport">
+	</div>
+	<script type="text/javascript">
+    app.initialize();
+  </script>
+</body>
 </html>

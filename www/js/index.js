@@ -16,34 +16,83 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+"use strict";
+
+window.Handbook = window.Handbook || {views: {}};
+
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
-    }
+  // Application Constructor
+  initialize : function() {
+    this.bindEvents();
+  },
+  // Bind Event Listeners
+  //
+  // Bind any events that are required on startup. Common events are:
+  // 'load', 'deviceready', 'offline', and 'online'.
+  bindEvents : function() {
+    document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
+  // deviceready Event Handler
+  //
+  // The scope of 'this' is the event. In order to call the 'receivedEvent'
+  // function, we must explicity call 'app.receivedEvent(...);'
+  onDeviceReady : function() {
+    app.receivedEvent('deviceready');
+    database.initialise();
+    var APP_SETTINGS = {
+      namespace : Handbook.views,
+      navigateToRootViewMode : "resetHistory",
+      defaultLayout : "slideout",
+      navigation : [ {
+        title : "Home",
+        action : "#home",
+        icon : "home"
+      }, {
+        title : "Search",
+        action : "#search",
+        icon : "find"
+      }, {
+        title : "Handbook",
+        action : "#handbook",
+        icon : "doc"
+      }, {
+        title : "Contacts",
+        action : "#contacts",
+        icon : "card"
+      }, {
+        title : "Programme",
+        action : "#programme",
+        icon : "event"
+      }, {
+        title : "Kitchen Rota",
+        action : "#kitchen",
+        icon : "food"
+      }, {
+        title : "Night Shift Rota",
+        action : "#nights",
+        iconSrc : "img/moon.png"
+      }, {
+        title : "Dorm Allocation",
+        action : "#dorms",
+        icon : "map"
+      }, {
+        title : "Boys",
+        action : "#boys",
+        icon : "user"
+      }, {
+        title : "About",
+        action : "#about",
+        icon : "info"
+      } ]
+    };
+    Handbook.app = new DevExpress.framework.html.HtmlApplication(APP_SETTINGS);
+    Handbook.app.router.register(":view", {
+      view : "login"
+    });
+    Handbook.app.navigate();
+  },
+  // Update DOM on a Received Event
+  receivedEvent : function(id) {
+    console.log('Received Event: ' + id);
+  }
 };

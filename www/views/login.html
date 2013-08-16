@@ -1,0 +1,29 @@
+<div data-options="dxView : { name: 'login', title: 'Login', layout: 'simple' } ">
+	<div class="home-view" data-options="dxContent : { targetPlaceholder: 'content' } ">
+		<div class="app">
+			<h1>Camp Handbook</h1>
+		</div>
+		<div class="welcome" data-bind="visible: ! oauth() && ! error()">
+			<p>
+			  Welcome! You'll need to sign in with the account that you use to log in to the members' website. After that you'll set up a PIN
+				for future access.
+		  </p>
+			<p>
+				<button data-bind="click: signInWithGoogle">Sign in</button>
+			</p>
+		</div>
+		<div class="welcome" data-bind="visible: oauth() && ! error()">
+			<p>Welcome back! Please enter your PIN.</p>
+			<p>
+				<input class="pin" type="number" data-bind="value: pin" />
+			</p>
+			<p>
+				<button data-bind="click: login">Login</button>
+			</p>
+		</div>
+    <div data-bind="visible: error">
+      <p>Sorry, there was a problem signing you in:</p>
+      <p data-bind="value: error"></p>
+    </div>
+	</div>
+</div>
