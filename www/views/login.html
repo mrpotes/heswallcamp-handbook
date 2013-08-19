@@ -21,6 +21,11 @@
 				<button data-bind="click: login">Login</button>
 			</p>
 		</div>
+		<div class="welcome" data-bind="visible: ! oauth() && isRippleEmulator">
+		  <p>Looks like you're using the ripple emulator. When you've got your oAuth code, paste it here:</p>
+		  <p><input type="text" data-bind="value: oauthCode"/></p>
+		  <p><button data-bind="click: swapAuthCodeForAccessToken">Done</button></p>
+		</div>
     <div data-bind="visible: error">
       <p>Sorry, there was a problem signing you in:</p>
       <p data-bind="value: error"></p>

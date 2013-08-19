@@ -29,6 +29,7 @@
     padding:150px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin-left: auto;
     margin-right: auto;
+    margin-top: 5px;
 }
 
 .welcome {

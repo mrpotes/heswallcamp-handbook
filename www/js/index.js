@@ -86,9 +86,16 @@ var app = {
       } ]
     };
     Handbook.app = new DevExpress.framework.html.HtmlApplication(APP_SETTINGS);
-    Handbook.app.router.register(":view", {
-      view : "login"
-    });
+    if (window.tinyHippos != undefined) {
+      Handbook.app.router.register(":view", {
+        view : "loading"
+      });
+    }
+    else {
+      Handbook.app.router.register(":view", {
+        view : "login"
+      });
+    }
     Handbook.app.navigate();
   },
   // Update DOM on a Received Event
