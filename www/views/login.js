@@ -9,6 +9,7 @@ Handbook.views.login = function() {
     isRippleEmulator: window.tinyHippos != undefined,
     oauthCode : ko.observable(),
     viewShown: function() {
+      Handbook.pin = null;
       this.oauth(localStorage.getItem("oauth_token"));
       this.oauthCode(null);
       this.error(null);
@@ -72,6 +73,7 @@ Handbook.views.login = function() {
       });
     },
     login : function() {
+      Handbook.pin = viewModel.pin();
       Handbook.app.navigate("home", {
         root : true
       });

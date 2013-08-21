@@ -3,25 +3,20 @@ window.Handbook = window.Handbook || {
 };
 Handbook.views.contacts = function() {
   var viewModel = {
-    contacts: [
+    contacts: ko.observableArray([
       {
         key: "Helpers",
-        items: ko.observableArray([])
+        items: []
       }
-    ],
+    ]),
     viewShown: function() {
       database.getHelpers(function(helpers) {
-        for (var i=0, helper; helper = helpers[i]; i++) {
-          console.log("Loaded "+helper.name);
-          viewModel.contacts[0].items.push(helper);
-        }
+        viewModel.contacts.shift();
+        viewModel.contacts.unshift({key:"Helpers",items:helpers});
       });
     },
-    helperPopupShown: ko.observable(false),
-    popupHelper: ko.observable({name: '', dob: '', mobile: '', phone: '', address: '', notes: '', email: ''}),
-    clickHelper: function(comp, el, itemData) {
-      popupHelper(itemData);
-      helperPopupShown(true);
+    clickHelper: function(data) {
+      Handbook.app.navigate("contact/"+data.itemData.name);
     }
   };
   return viewModel;

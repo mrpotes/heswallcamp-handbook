@@ -34,7 +34,11 @@ Handbook.views.loading = function() {
       }).fail(viewModel.loadFailed);
     },
     loadBoys : function() {
-      viewModel.loadNext();
+      Handbook.oauth.get("boys").done(function(data)) {
+        var crypt = new JSEncrypt();
+        crypt.setPrivateKey(CryptoJS.TripleDES.encrypt(localStorage.getItem("privateKey"), Handbook.pin));
+        database.setBoys($.parseJSON(crypt.decrypt(data)), viewModel.loadNext, viewModel.loadFailed);
+      }).fail(viewModel.loadFailed);
     },
     loadHelpers : function() {
       Handbook.oauth.get("https://sites.google.com/feeds/content/hdchf.org.uk/members?path=/annual-camp/helpers-directory").done(function(data) {
@@ -46,11 +50,11 @@ Handbook.views.loading = function() {
             var helper = {};
             var fields = entry.getElementsByTagName("field");
             for (var j=0, field; field = fields[j]; j++) {
-              if (field.attributes["name"] !== "Age") {
+              if (field.attributes["name"].value !== "Age") {
                 var fieldValue = field.textContent;
-                console.log(typeof fieldValue);
-                if (fieldValue.indexOf("&lt;a") === 0) fieldValue = fieldValue.substring(fieldValue.indexOf(">")+1, fieldValue.lastIndexOf("&lt;"));
-                helper[field.attributes["name"]] = fieldValue;
+                if (fieldValue.indexOf("<a") === 0) fieldValue = fieldValue.substring(fieldValue.indexOf(">")+1, fieldValue.lastIndexOf("<"));
+                console.log("'"+field.attributes["name"].value+"' - "+fieldValue);
+                helper[field.attributes["name"].value] = fieldValue;
               } 
             }
             helpers.push(helper);

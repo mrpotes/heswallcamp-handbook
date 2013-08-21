@@ -87,13 +87,13 @@ var app = {
     };
     Handbook.app = new DevExpress.framework.html.HtmlApplication(APP_SETTINGS);
     if (window.tinyHippos != undefined) {
-      Handbook.app.router.register(":view", {
-        view : "loading"
+      Handbook.app.router.register(":view/:id", {
+        view : "contacts", id: undefined
       });
     }
     else {
-      Handbook.app.router.register(":view", {
-        view : "login"
+      Handbook.app.router.register(":view/:id", {
+        view : "login", id: undefined
       });
     }
     Handbook.app.navigate();

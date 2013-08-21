@@ -6,6 +6,7 @@ Handbook.views.pin = function() {
         var crypt = new JSEncrypt();
         localStorage.setItem("privateKey", CryptoJS.TripleDES.encrypt(crypt.getPrivateKey(), this.pin()));
         localStorage.setItem("publicKey", crypt.getPublicKey());
+        Handbook.pin = viewModel.pin();
         Handbook.app.navigate("loading", {root: true});
       }
     };

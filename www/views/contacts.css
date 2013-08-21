@@ -1,0 +1,12 @@
+.contacts div.dx-button {
+	float: right;
+}
+.dx-theme-ios .contacts a .dx-icon, .dx-theme-io7 .contacts a .dx-icon {
+  -webkit-filter: invert(100%);
+}
+.contacts .dx-icon {
+  background-size: 100%;
+  float: right;
+  height: 24px;
+  width: 24px;
+}

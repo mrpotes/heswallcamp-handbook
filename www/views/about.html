@@ -1,20 +1,18 @@
 <div data-options="dxView : { name: 'about', title: 'About' } ">
 	<div data-options="dxContent : { targetPlaceholder: 'content' } ">
-		<div data-bind="dxScrollView: {}">
-			<p style="padding: 5px">This is the mobile edition of the Heswall Disabled Children's Holiday Fund annual camp Handbook.</p>
-			<p style="padding: 5px">
+		<div class="about" data-bind="dxScrollView: {}">
+			<p>This is the mobile edition of the Heswall Disabled Children's Holiday Fund annual camp Handbook.</p>
+			<p>
 				Thank you for volunteering for the charity. Please make sure you are familiar with the contents of the handbook, and report any errors
 				to <a href="mailto:committee-members@hdchf.org.uk">the committee</a>.
 			</p>
-			<p style="padding: 5px">Thanks.</p>
-      <hr />
-      <p style="padding: 5px">
-        To reload the data in the app, please <a href="#loading">Click Here</a>.
-      </p>
-      <hr />
-      <p style="padding: 5px">
-        To logout and wipe all data <div data-bind="dxButton: {text: 'Click Here', clickAction: logout}"></div>
-      </p>
+			<p>Thanks.</p>
+			<hr />
+			<p class="button-description">To reload the data in the app, click</p>
+			<div data-bind="dxButton: {text: 'Reload Data', clickAction: '#loading'}"></div>
+			<hr />
+			<p class="button-description">To logout and wipe all data, click</p>
+			<div data-bind="dxButton: {text: 'Logout', clickAction: logout}"></div>
 		</div>
 	</div>
 </div>
