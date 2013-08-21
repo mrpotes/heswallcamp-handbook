@@ -1,0 +1,25 @@
+<div data-options="dxView : { name: 'contacts', title: 'Contacts' } ">
+	<div class="home-view" data-options="dxContent : { targetPlaceholder: 'content' } ">
+		<div class="contacts" data-bind="dxList: { dataSource: contacts, grouped: true }">
+			<div data-options="dxTemplate: { name: 'group' }">
+				<b><span data-bind="text: $data.key"></span></b>
+			</div>
+			<div data-options="dxTemplate: { name: 'item' }">
+				<div>
+					<span data-bind="text: $data.name"></span> <a data-bind="attr:{'href': 'tel:'+$data.mobile}"><span
+						data-bind="attr:{ 'class': 'dx-icon dx-icon-tel'}"></span></a>
+				</div>
+			</div>
+		</div>
+		<div data-bind="dxPopup:{visible: helperPopupShown, title: popupHelper().name, showTitle: true, fullScreen:true}">
+			<table>
+        <tr><td>Date of Birth:</td><td data-bind="text: popupHelper().dob"></td></tr>
+        <tr><td>Mobile:</td><td><a data-bind="attr:{'href': 'tel:'+popupHelper().mobile}, text: popupHelper().mobile"></a></td></tr>
+        <tr><td>Home:</td><td><a data-bind="attr:{'href': 'tel:'+popupHelper().phone}, text: popupHelper().phone"></a></td></tr>
+        <tr><td>Email:</td><td><a data-bind="attr:{'href': 'mailto:'+popupHelper().email}, text: popupHelper().email"></a></td></tr>
+        <tr><td>Address:</td><td data-bind="text: popupHelper().address"></td></tr>
+        <tr><td>Notes:</td><td data-bind="text: popupHelper().notes"></td></tr>
+			</table>
+		</div>
+	</div>
+</div>

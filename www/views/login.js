@@ -8,13 +8,19 @@ Handbook.views.login = function() {
     error : ko.observable(),
     isRippleEmulator: window.tinyHippos != undefined,
     oauthCode : ko.observable(),
+    viewShown: function() {
+      this.oauth(localStorage.getItem("oauth_token"));
+      this.oauthCode(null);
+      this.error(null);
+      this.pin(null);
+    },
     signInWithGoogle : function() {
       // Build the OAuth consent page URL
       var authUrl = 'https://accounts.google.com/o/oauth2/auth?' + $.param({
         client_id : Handbook.oauth.clientId,
         redirect_uri : "http://localhost",
         response_type : "code",
-        scope : "https://www.googleapis.com/auth/drive.readonly https://sites.google.com/feeds/"
+        scope : "https://www.googleapis.com/auth/drive.readonly https://sites.google.com/feeds/ https://www.googleapis.com/auth/userinfo.email"
       });
 
       // Open the OAuth consent page in the InAppBrowser
