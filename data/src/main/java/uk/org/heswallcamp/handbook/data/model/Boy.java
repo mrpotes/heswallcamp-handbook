@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 
 import org.joda.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.appengine.api.datastore.Key;
 
 @Entity
@@ -18,19 +19,30 @@ public class Boy {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty
     private Key key;
+	@JsonProperty
 	private String name;
+	@JsonProperty
 	private LocalDate dateOfBirth;
+	@JsonProperty
 	private String address;
 	@ElementCollection
+	@JsonProperty
 	private List<String> phoneNumbers;
+	@JsonProperty
 	private String disability;
+	@JsonProperty
 	private String specialNeeds;
+	@JsonProperty
 	private String allergies;
+	@JsonProperty
 	private String notes;
 	@ElementCollection
+	@JsonProperty
 	private List<String> medications;
 	@ManyToMany
+	@JsonProperty
 	private List<Year> camps;
 	
 	public String getName() {
@@ -92,6 +104,12 @@ public class Boy {
 	}
 	public void setCamps(List<Year> camps) {
 		this.camps = camps;
+	}
+	public Key getKey() {
+		return key;
+	}
+	public void setKey(Key key) {
+		this.key = key;
 	}
 
 }

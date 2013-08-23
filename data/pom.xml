@@ -6,11 +6,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<dependencies>
-		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>1.8.3</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.appengine</groupId> -->
+<!-- 			<artifactId>appengine-api-1.0-sdk</artifactId> -->
+<!-- 			<version>1.8.3</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -42,15 +42,65 @@
 			<artifactId>guava</artifactId>
 			<version>14.0.1</version>
 		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.appengine.orm</groupId> -->
+<!-- 			<artifactId>datanucleus-appengine</artifactId> -->
+<!-- 			<version>2.1.2</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.datanucleus</groupId> -->
+<!-- 			<artifactId>datanucleus-core</artifactId> -->
+<!-- 			<version>3.1.3</version> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.datanucleus</groupId> -->
+<!-- 			<artifactId>datanucleus-api-jpa</artifactId> -->
+<!-- 			<version>3.1.3</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.datanucleus</groupId> -->
+<!-- 			<artifactId>datanucleus-api-jdo</artifactId> -->
+<!-- 			<version>3.1.3</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.geronimo.specs</groupId> -->
+<!-- 			<artifactId>geronimo-jpa_2.0_spec</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 		</dependency> -->
 		<dependency>
-			<groupId>com.google.appengine.orm</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>2.1.2</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- For the aforementioned data-binding annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- Extensions for Joda Time, which don't include Duration -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-			<version>1.0</version>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-guice</artifactId>
+			<version>1.17.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -67,6 +117,23 @@
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>1.8.3</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<additionalBuildcommands>
+						<buildCommand>
+							<name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
+						</buildCommand>
+					</additionalBuildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
