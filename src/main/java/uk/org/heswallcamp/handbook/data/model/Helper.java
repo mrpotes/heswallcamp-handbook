@@ -9,14 +9,12 @@ import javax.persistence.Id;
 
 import org.joda.time.LocalDate;
 
-import com.google.appengine.api.datastore.Key;
-
 @Entity
 public class Helper {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;
+    private Integer key;
 	private String name;
 	private LocalDate dateOfBirth;
 	private String address;
@@ -66,7 +64,7 @@ public class Helper {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	public Key getKey() {
+	public Integer getKey() {
 		return key;
 	}
 	

@@ -1,17 +1,21 @@
 package uk.org.heswallcamp.handbook.data.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import uk.org.heswallcamp.handbook.data.model.Boy;
+import uk.org.heswallcamp.handbook.data.model.Boy_;
 import uk.org.heswallcamp.handbook.data.model.Year;
+import uk.org.heswallcamp.handbook.data.model.Year_;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
@@ -22,49 +26,48 @@ public class BoysDAO {
 	@Inject YearDAO yearDAO;
 
 	public Boy getBoy(String name) {
-		Boy boy = (Boy) em.get().createQuery("SELECT b FROM Boy b WHERE name = :name")
-				.setParameter("name", name)
-				.getSingleResult();
-		boy.setCamps(Lists.transform(boy.getCampYears(), KEY_TO_YEAR));
-		return boy;
+		CriteriaBuilder cb = em.get().getCriteriaBuilder();
+		CriteriaQuery<Boy> cq = cb.createQuery(Boy.class);
+		Root<Boy> boy = cq.from(Boy.class);
+		cq.where(cb.equal(boy.get(Boy_.name), name));
+		cq.select(boy);
+		return em.get().createQuery(cq).getSingleResult();
 	}
 
-	public List<Boy> getBoys(Integer year) {
-		List<Key> boyKeys = new ArrayList<Key>(yearDAO.getYear(year).getBoys());
-		List<Boy> results = Lists.transform(boyKeys, NAME_TO_BOY);
-		for (Boy boy : results) {
-			boy.setCamps(Lists.transform(boy.getCampYears(), KEY_TO_YEAR));
-		}
-		return results;
+	public List<Boy> getBoys(Integer y) {
+		CriteriaBuilder cb = em.get().getCriteriaBuilder();
+		CriteriaQuery<Boy> cq = cb.createQuery(Boy.class);
+
+		Root<Boy> boy = cq.from(Boy.class);
+		Root<Year> year = cq.from(Year.class);
+		cq.where(cb.equal(year.get(Year_.year), y));
+		cq.where(year.in(boy.get(Boy_.camps)));
+		cq.select(boy);
+		return em.get().createQuery(cq).getResultList();
 	}
 
 	public void save(Boy boy) {
-		boy.setCampYears(Lists.transform(boy.getCamps(), YEAR_TO_KEY));
+		boy.setCamps(Lists.transform(boy.getCamps(), YEAR_TO_YEAR_ENTITY));
 		em.get().persist(boy);
-		for (Key year : boy.getCampYears()) {
-			Year y = em.get().find(Year.class, year);
-			y.getBoys().add(boy.getKey());
-			em.get().persist(y);
-		}
+//		for (Year year : boy.getCamps()) {
+//			Year y;
+//			try {
+//				y = em.get().find(Year.class, year.getYear());
+//			} catch (NoResultException e) {
+//				em.get().persist(entity)
+//			}
+//			em.get().persist(y);
+//		}
 	}
 
-	private final Function<Integer, Key> YEAR_TO_KEY = new Function<Integer, Key>() {
-		public Key apply(Integer y) {
-			return yearDAO.getYear(y).getKey();
-		}
-	};
-
-	private final Function<Key, Integer> KEY_TO_YEAR = new Function<Key, Integer>() {
-		public Integer apply(Key y) {
-			return em.get().find(Year.class, y).getYear();
-		}
-	};
-
-	private final Function<Key, Boy> NAME_TO_BOY = new Function<Key, Boy>() {
-		public Boy apply(Key name) {
-			Boy boy = em.get().find(Boy.class, name);
-			boy.setCamps(Lists.transform(boy.getCampYears(), KEY_TO_YEAR));
-			return boy;
+	private final Function<Year, Year> YEAR_TO_YEAR_ENTITY = new Function<Year, Year>() {
+		public Year apply(Year year) {
+			try {
+				return em.get().find(Year.class, year.getYear());
+			} catch (NoResultException e) {
+				em.get().persist(year);
+				return year;
+			}
 		}
 	};
 

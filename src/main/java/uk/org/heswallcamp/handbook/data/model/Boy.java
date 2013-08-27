@@ -6,14 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"name"}))
@@ -21,7 +20,9 @@ public class Boy {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+	@JsonProperty
+	private Integer key;
+	@JsonProperty
 	private String name;
 	@JsonProperty
 	private LocalDate dateOfBirth;
@@ -39,10 +40,9 @@ public class Boy {
 	private String notes;
 	@JsonProperty
 	private List<String> medications;
-	private List<Key> campYears;
 	@JsonProperty
-	@Transient
-	private List<Integer> camps;
+	@ManyToMany
+	private List<Year> camps;
 	
 	public String getName() {
 		return name;
@@ -98,22 +98,16 @@ public class Boy {
 	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
-	public List<Key> getCampYears() {
-		return campYears;
-	}
-	public void setCampYears(List<Key> campYears) {
-		this.campYears = campYears;
-	}
-	public List<Integer> getCamps() {
+	public List<Year> getCamps() {
 		return camps;
 	}
-	public void setCamps(List<Integer> camps) {
+	public void setCamps(List<Year> camps) {
 		this.camps = camps;
 	}
-	public Key getKey() {
+	public Integer getKey() {
 		return key;
 	}
-	public void setKey(Key key) {
+	public void setKey(Integer key) {
 		this.key = key;
 	}
 }

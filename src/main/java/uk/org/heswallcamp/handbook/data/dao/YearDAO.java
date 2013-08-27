@@ -4,29 +4,27 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
 import uk.org.heswallcamp.handbook.data.model.Year;
 
 @Singleton
 public class YearDAO {
 
-    @Inject Provider<EntityManager> em; 
+    @Inject Provider<EntityManager> em;
+    
+    public void setYear(Year year) {
+    	Year y = em.get().find(Year.class, year.getYear());
+    	year.setBoys(y.getBoys());
+    	year.setHelpers(y.getHelpers());
+    	em.get().persist(year);
+    }
 
 	public Year getYear(Integer year) {
-		Query q = em.get().createQuery("select y from Year y where y.year = :year");
-		q.setParameter("year", year);
-		Year y = null;
-		try {
-			y = (Year) q.getSingleResult();
-		} catch (NoResultException e) {}
-		if (y == null) {
-			y = new Year();
-			y.setYear(year);
-			em.get().persist(y);
-		}
-		return y;
+		return em.get().find(Year.class, year);
+	}
+
+	public void save(Year year) {
+		em.get().persist(year);
 	}
 	
 }

@@ -3,21 +3,26 @@ package uk.org.heswallcamp.handbook.data.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
-import com.google.appengine.api.datastore.Key;
+import org.joda.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Year {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;
+	@JsonProperty
 	private Integer year;
-	private Set<Key> boys;
-	private Set<Key> helpers;
+	@ManyToMany(fetch=FetchType.LAZY)
+	private Set<Boy> boys;
+	@ManyToMany(fetch=FetchType.LAZY)
+	private Set<Helper> helpers;
+	@JsonProperty
+	private LocalDate startDate;
 	
 	public Integer getYear() {
 		return year;
@@ -25,20 +30,23 @@ public class Year {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	public Key getKey() {
-		return key;
-	}
-	public Set<Key> getHelpers() {
+	public Set<Helper> getHelpers() {
 		return helpers;
 	}
-	public void setHelpers(Set<Key> helpers) {
+	public void setHelpers(Set<Helper> helpers) {
 		this.helpers = helpers;
 	}
-	public Set<Key> getBoys() {
+	public Set<Boy> getBoys() {
 		return boys;
 	}
-	public void setBoys(Set<Key> boys) {
+	public void setBoys(Set<Boy> boys) {
 		this.boys = boys;
+	}
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 		
 }
