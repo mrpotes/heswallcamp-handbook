@@ -12,7 +12,14 @@ import uk.org.heswallcamp.handbook.data.model.Year;
 @Singleton
 public class YearDAO {
 
-    @Inject Provider<EntityManager> em; 
+    @Inject Provider<EntityManager> em;
+    
+    public void setYear(Year year) {
+    	Year y = em.get().find(Year.class, year.getYear());
+    	year.setBoys(y.getBoys());
+    	year.setHelpers(y.getHelpers());
+    	em.get().persist(year);
+    }
 
 	public Year getYear(Integer year) {
 		Query q = em.get().createQuery("select y from Year y where y.year = :year");
