@@ -14,7 +14,6 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"name"}))
 public class DormAllocation {
 	
 	@Id
@@ -22,6 +21,7 @@ public class DormAllocation {
 	@JsonProperty
 	private Integer key;
 	@JsonProperty
+	@ManyToOne
 	private Dorm dorm;
 	@JsonProperty
 	@ManyToOne

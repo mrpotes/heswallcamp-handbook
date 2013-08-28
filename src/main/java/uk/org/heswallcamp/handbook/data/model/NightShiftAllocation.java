@@ -17,12 +17,15 @@ public class NightShiftAllocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer key;
 	@JsonProperty
+	@ManyToOne
 	private Helper helper;
 	@JsonProperty
 	@ManyToOne
 	private NightShift nightShift;
 	@JsonProperty
 	private LocalDate date;
+	@ManyToOne
+	private Year year;
 	
 	public Integer getKey() {
 		return key;
@@ -48,6 +51,5 @@ public class NightShiftAllocation {
 	public void setYear(Year year) {
 		this.year = year;
 	}
-	private Year year;
 	
 }

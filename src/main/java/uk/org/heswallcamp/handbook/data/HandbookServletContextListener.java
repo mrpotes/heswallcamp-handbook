@@ -18,6 +18,12 @@ public class HandbookServletContextListener extends GuiceServletContextListener 
 		String herokuUrl = System.getenv("DATABASE_URL"), username, password, dbUrl, driver, dialect;
 		
 		if (herokuUrl == null || "".equals(herokuUrl)) {
+			username = "SA";
+			password = "";
+			dbUrl = "jdbc:hsqldb:mem:mymemdb";
+			driver = "org.hsqldb.jdbc.JDBCDriver";
+			dialect = "org.hibernate.dialect.HSQLDialect";
+		} else {
 		    URI dbUri;
 			try {
 				dbUri = new URI(herokuUrl);
@@ -29,12 +35,6 @@ public class HandbookServletContextListener extends GuiceServletContextListener 
 		    dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 		    driver = "org.postgresql.Driver";
 		    dialect = "org.hibernate.dialect.PostgreSQLDialect";
-		} else {
-			username = "SA";
-			password = "";
-			dbUrl = "jdbc:hsqldb:mem:mymemdb";
-			driver = "org.hsqldb.jdbc.JDBCDriver";
-			dialect = "org.hibernate.dialect.HSQLDialect";
 		}
 
 		System.setProperty("javax.persistence.jdbc.url", dbUrl);

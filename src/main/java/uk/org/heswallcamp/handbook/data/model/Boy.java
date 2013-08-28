@@ -2,6 +2,7 @@ package uk.org.heswallcamp.handbook.data.model;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class Boy {
 	@JsonProperty
 	private String address;
 	@JsonProperty
+	@ElementCollection
 	private List<String> phoneNumbers;
 	@JsonProperty
 	private String disability;
@@ -39,6 +41,7 @@ public class Boy {
 	@JsonProperty
 	private String notes;
 	@JsonProperty
+	@ElementCollection
 	private List<String> medications;
 	@JsonProperty
 	@ManyToMany

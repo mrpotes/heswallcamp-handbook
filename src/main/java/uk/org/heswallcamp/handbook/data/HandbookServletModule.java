@@ -16,7 +16,7 @@ public class HandbookServletModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-		install(new JpaPersistModule("handbook-persistence"));
+		install(new JpaPersistModule("handbook-persistence").properties(System.getProperties()));
 		bind(GuiceContainer.class);
 		ResourceConfig rc = new PackagesResourceConfig("uk.org.heswallcamp.handbook.data.resources");
 		for (Class<?> resource : rc.getClasses()) {

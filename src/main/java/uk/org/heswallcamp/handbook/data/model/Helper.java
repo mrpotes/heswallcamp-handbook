@@ -2,10 +2,12 @@ package uk.org.heswallcamp.handbook.data.model;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.joda.time.LocalDate;
 
@@ -19,7 +21,9 @@ public class Helper {
 	private LocalDate dateOfBirth;
 	private String address;
 	private String email;
+	@ElementCollection
 	private List<String> phoneNumbers;
+	@ManyToMany
 	private List<Year> camps;
 	private String notes;
 	public String getName() {
